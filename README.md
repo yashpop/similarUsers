@@ -43,4 +43,17 @@ To understand about the, data, data mining and inferential statistics are import
 
 *time taken: 8 hours*
 
-
+# How to run the file
+- **requirements**
+  - 4GB RAM, Python 2.7 or recent
+  - Data files in respective paths as specified
+- Install python
+- Create virtual environment of python in Pluralsight folder/directory
+  - python virtualenv <env_name>
+- run pip requirements.txt
+- run *flask run*
+  - This creates the virtual host running in local machine
+- open browser and type localhost:5000/index
+- enter a user id number
+- watch the result (takes 1 minute)
+  
