@@ -49,7 +49,8 @@ To understand about the, data, data mining and inferential statistics are import
   - Data files in respective paths as specified
 - Install python
 - Create virtual environment of python in Pluralsight folder/directory
-  - python virtualenv <env_name>
+  - python -m virtualenv <env_name>
+  - <env_name>/Scripts/activate - enter this to activate virtual environment
 - run pip requirements.txt
 - run *flask run*
   - This creates the virtual host running in local machine
