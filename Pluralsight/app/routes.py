@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import os
 import webbrowser
+from flask import jsonify
 
 
 from forms import UserEntry
@@ -18,15 +19,26 @@ def index():
         a = Application()
         similar_users = a.retrieve_data(user_handle)
         if similar_users is None:
-            return "Hello New User, please take our assessment at Pluralsight for better results"
+            return "Hello New User {}, please take our assessment at Pluralsight for better results".format(user_handle)
         else:
             flash("requested for user : {}".format(form.user_handle.data))
             return view_data_in_browser(similar_users)
     return render_template('index.html',title='Home',form=form)
 
-@app.route("/display",methods=['GET','POST'])
-def display():
-    return "Hello"
+@app.route("/display/<user_handle>",methods=['GET','POST'])
+def display(user_handle):
+    try:
+        user_handle=int(user_handle)
+    except:
+        return jsonify('{"Error":"Please make sure of user ID is number"}')
+    a = Application()
+    similar_users = a.retrieve_data(user_handle)
+    if similar_users is None:
+        return "New User : Hello New User {}, please take our assessment at Pluralsight for better results".format(user_handle)
+    else:
+        #flash("requested for user : {}".format(user_handle))
+        return view_data_in_browser(similar_users)
+    return render_template('index.html',title='Home',form=form)
 
 
 def view_data_in_browser(data):
@@ -39,10 +51,12 @@ def view_data_in_browser(data):
         file = 'html_data.html'
 
     html_str = data.to_html()
+    '''
     with open(file,'w') as f:
         f.write(html_str)
-    file_name = os.path.abspath(file)
+    #file_name = os.path.abspath(file)
     #webbrowser.open("file://{}".format(file_name))
+    '''
     return html_str
 
 def list_to_html(elements):
