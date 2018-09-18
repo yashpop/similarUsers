@@ -17,12 +17,11 @@ def index():
         #print(user_handle)
         a = Application()
         similar_users = a.retrieve_data(user_handle)
-        if similar_users:
+        if similar_users is None:
+            return "Hello New User, please take our assessment at Pluralsight for better results"
+        else:
             flash("requested for user : {}".format(form.user_handle.data))
             return view_data_in_browser(similar_users)
-
-        else:
-            return "Hello New User, please take our assessment at Pluralsight for better results"
     return render_template('index.html',title='Home',form=form)
 
 @app.route("/display",methods=['GET','POST'])
@@ -35,10 +34,10 @@ def view_data_in_browser(data):
         #html_str = list_to_html(html_data)
         data = pd.Series(data).to_frame()
         file = 'html_data_list.html'
+        data.columns = ['similar_users_available']
     else:
-
         file = 'html_data.html'
-    data.columns = ['similar_users_available']
+
     html_str = data.to_html()
     with open(file,'w') as f:
         f.write(html_str)
@@ -55,13 +54,13 @@ def list_to_html(elements):
 
 class Application:
     global user_course_views
-    user_course_views = pd.read_csv('./data_files_ml_engineer/user_course_views.csv')
+    user_course_views = pd.read_csv('./app/data_files_ml_engineer/user_course_views.csv')
     global user_interests
-    user_interests = pd.read_csv('./data_files_ml_engineer/user_interests.csv')
+    user_interests = pd.read_csv('./app/data_files_ml_engineer/user_interests.csv')
     global user_assessment_scores
-    user_assessment_scores = pd.read_csv('./data_files_ml_engineer/user_assessment_scores.csv')
+    user_assessment_scores = pd.read_csv('./app/data_files_ml_engineer/user_assessment_scores.csv')
     global course_tags
-    course_tags = pd.read_csv('./data_files_ml_engineer/course_tags.csv')
+    course_tags = pd.read_csv('./app/data_files_ml_engineer/course_tags.csv')
 
 
     def __init__(self):
@@ -104,7 +103,8 @@ class Application:
         similar_users = pd.DataFrame(users,columns=['user_handle'])
         similar_users_summary = pd.merge(similar_users,ratings,on='user_handle')
         #similar_users_summary
-        return list(similar_users_summary.user_handle.unique())
+        #return list(similar_users_summary.user_handle.unique())
+        return similar_users_summary
 
 
 
