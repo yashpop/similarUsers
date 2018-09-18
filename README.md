@@ -1,5 +1,5 @@
 # similarUsers
-This project is related to [PluralSight](https://www.pluralsight.com/) and has all rights with them.
+This project is related to [PluralSight](https://www.pluralsight.com/) and has all rights reserved.
 
 ## Recommendation Systems
 
