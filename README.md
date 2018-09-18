@@ -41,6 +41,6 @@ To understand about the, data, data mining and inferential statistics are import
     - Further this can be improved based on feedbacks
 
 
-
+*time taken: 8 hours*
 
 
