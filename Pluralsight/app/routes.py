@@ -30,7 +30,7 @@ def display(user_handle):
     try:
         user_handle=int(user_handle)
     except:
-        return jsonify('{"Error":"Please make sure of user ID is number"}')
+        return jsonify(Error="Please make sure of user ID is number")
     a = Application()
     similar_users = a.retrieve_data(user_handle)
     if similar_users is None:
